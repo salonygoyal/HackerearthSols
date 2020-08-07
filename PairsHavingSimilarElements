@@ -1,0 +1,27 @@
+def SimilarElementsPairs (A,N):
+    # Write your code here
+    B = list(A)
+    B.sort()
+    count = 0
+    tot = 0
+    equal = 0
+    start = 0
+    for i in range(1,N):
+        if B[i]-B[i-1]>1:
+            if B[i-1] != start:
+                tot=tot+count*(count+1)//2
+            count=0
+            start = B[i]
+        else:
+            count = count + 1
+    if B[N-1]!=start:
+        tot=tot+count*(count+1)//2
+    return tot
+
+
+
+
+N = int(input())
+A = map(int,input().split())
+out_ = SimilarElementsPairs(A,N)
+print (out_)
