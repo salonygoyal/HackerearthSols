@@ -1,0 +1,11 @@
+# Write your code here
+n = int(input())
+a = list(map(int, input().split()))
+b = list()
+max = -1
+for i in range(n - 1, -1, -1):
+    if max <= a[i]:
+        b.append(a[i])
+        max = a[i]
+b.reverse()
+print(*b)
