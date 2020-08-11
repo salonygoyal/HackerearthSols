@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+class Program
+{
+     public static int count = 0;
+
+        public static Queue<int> queue;
+        public static int BFS(List<int>[] lst, int start , int end, bool[] visited)
+        {
+            queue.Enqueue(start);
+            queue.Enqueue(-1);
+            visited[start] = true;
+            while(queue.Count != 0)
+            {
+                int val = queue.Dequeue();
+                if(val == -1)
+                {
+                    count++;
+                    queue.Enqueue(-1);
+                }
+                else
+                {
+                    foreach (var i in lst[val])
+                    {
+                        if (!visited[i])
+                        {
+                            queue.Enqueue(i);
+                            if (i == end)
+                                return count++;
+                            visited[i] = true;
+                        }
+                    }
+                }                
+            }
+            return 0;
+        }
+        public static void Main(string[] args)
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+            while(t > 0)
+            {
+                t--;
+                count = 0;
+                string[] arr = Console.ReadLine().Split(' ');
+                int n = Convert.ToInt32(arr[0]);
+                int m = Convert.ToInt32(arr[1]);
+                List<int>[] lst = new List<int>[n + 1];
+                bool[] visited = new bool[n + 1];
+                queue = new Queue<int>();
+                for(int i=1; i<=n; i++)
+                {
+                    lst[i] = new List<int>();
+                    visited[i] = false;
+                }
+                for(int i=0; i<m; i++)
+                {
+                    string[] arr1 = Console.ReadLine().Split(' ');
+                    int a = Convert.ToInt32(arr1[0]);
+                    int b = Convert.ToInt32(arr1[1]);
+                    lst[a].Add(b);
+                    lst[b].Add(a);
+                }
+                BFS(lst, 1, n, visited);
+                Console.WriteLine(count);
+            }
+        }
+}
